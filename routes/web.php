@@ -50,6 +50,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
         return view('groups.show')
             ->withGroup($team);
     })->name('groups.show');
+    Route::get('/groups/{team}/members', function(\App\Models\Team $team){
+        return view('groups.members')
+            ->withGroup($team);
+    })->name('groups.members');
     Route::post('/groups/{team}/join', function(\App\Models\Team $team){
         $team->users()->attach([Auth::id()]);
         return redirect()->route('groups.show', $team);

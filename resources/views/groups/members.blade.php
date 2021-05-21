@@ -9,8 +9,11 @@
             <x-group-menu :group="$group"/>
         </x-slot>
 
-        <livewire:post-form :postable="$group"/>
-        <livewire:post-list :postable="$group"/>
-
+        <h1>
+            {{ __('Members') }}
+        </h1>
+        @foreach($group->allUsers() as $member)
+            <x-member-card :member="$member"/>
+        @endforeach
     </x-stream>
 </x-app-layout>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasPosts;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -22,6 +23,7 @@ class User extends Authenticatable implements Following
     use Notifiable;
     use TwoFactorAuthenticatable;
     use Follow;
+    use HasPosts;
 
     /**
      * The attributes that are mass assignable.
@@ -61,4 +63,12 @@ class User extends Authenticatable implements Following
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ownPosts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

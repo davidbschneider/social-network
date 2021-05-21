@@ -1,27 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-member-card :member="$member"/>
+        <x-member-card :member="$member" />
     </x-slot>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                @if(Auth::user()->isFollowing($member))
-                    <form action="{{ route('members.unfollow', $member) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn-danger">
-                            {{ __('Unfollow') }}
-                        </button>
-                    </form>
-                @else
-                    <form action="{{ route('members.follow', $member) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn-primary">
-                            {{ __('Follow') }}
-                        </button>
-                    </form>
-                @endif
-            </div>
-        </div>
-    </div>
+    <x-stream>
+        <x-slot name="menu">
+            <x-member-menu :member="$member" />
+        </x-slot>
+
+        <livewire:post-form :postable="$member"/>
+        <livewire:post-list :postable="$member"/>
+
+    </x-stream>
 
 </x-app-layout>
