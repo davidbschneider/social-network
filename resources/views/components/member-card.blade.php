@@ -5,9 +5,11 @@
     <div class="flex-grow-1 ms-3">
         <h2 class="display-4">
             {{ $member->name }}
-            <a href="{{ route('members.show', $member) }}">
-                {{ __('Show') }}
-            </a>
+            @if(!request()->routeIs('members.show', $member))
+                <a href="{{ route('members.show', $member) }}">
+                    {{ __('Show') }}
+                </a>
+            @endif
         </h2>
     </div>
 </div>
