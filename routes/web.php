@@ -23,6 +23,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
         return view('dashboard');
     })->name('dashboard');
 
+    // Members
     Route::get('/members', function(){
         return view('members.index')
             ->withMembers(\App\Models\User::paginate());
@@ -39,5 +40,23 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
         \Illuminate\Support\Facades\Auth::user()->unfollow($user);
         return redirect()->route('members.show', $user);
     })->name('members.unfollow');
+
+    // Groups
+    Route::get('/groups', function(){
+        return view('groups.index')
+            ->withGroups(\App\Models\Team::paginate());
+    })->name('groups.index');
+    Route::get('/groups/{team}', function(\App\Models\Team $team){
+        return view('groups.show')
+            ->withGroup($team);
+    })->name('groups.show');
+    Route::post('/groups/{team}/join', function(\App\Models\Team $team){
+        $team->users()->attach([Auth::id()]);
+        return redirect()->route('groups.show', $team);
+    })->name('groups.join');
+    Route::post('/groups/{team}/leave', function(\App\Models\Team $team){
+        $team->users()->detach([Auth::id()]);
+        return redirect()->route('groups.show', $team);
+    })->name('groups.leave');
 
 });
