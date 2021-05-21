@@ -8,7 +8,7 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
@@ -18,29 +18,25 @@
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
-    <body class="font-sans antialiased">
-        <x-jet-banner />
+    <body class="bg-light antialiased">
+        <x-site-navigation/>
 
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
+        <!-- Page Heading -->
+        <header class="d-flex py-3 bg-white shadow-sm border-bottom">
+            <div class="container">
+                {{ $header }}
+            </div>
+        </header>
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
+        <!-- Page Content -->
+        <main class="container my-5">
+            {{ $slot }}
+        </main>
 
         @stack('modals')
 
         @livewireScripts
+
+        @stack('scripts')
     </body>
 </html>

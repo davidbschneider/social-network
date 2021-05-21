@@ -1,30 +1,33 @@
 <x-jet-form-section submit="createTeam">
     <x-slot name="title">
-        {{ __('Team Details') }}
+        {{ __('Group Details') }}
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Create a new team to collaborate with others on projects.') }}
+        {{ __('Create a new group to collaborate with others on a topic.') }}
     </x-slot>
 
     <x-slot name="form">
-        <div class="col-span-6">
-            <x-jet-label value="{{ __('Team Owner') }}" />
+        <div class="mb-3">
+            <x-jet-label value="{{ __('Group Owner') }}" />
 
-            <div class="flex items-center mt-2">
-                <img class="w-12 h-12 rounded-full object-cover" src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->name }}">
+            <div class="d-flex mt-2">
+                <img class="rounded-circle" width="48" src="{{ $this->user->profile_photo_url }}">
 
-                <div class="ml-4 leading-tight">
+                <div class="ml-2">
                     <div>{{ $this->user->name }}</div>
-                    <div class="text-gray-700 text-sm">{{ $this->user->email }}</div>
+                    <div class="text-muted">{{ $this->user->email }}</div>
                 </div>
             </div>
         </div>
 
-        <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="name" value="{{ __('Team Name') }}" />
-            <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="state.name" autofocus />
-            <x-jet-input-error for="name" class="mt-2" />
+        <div class="w-md-75">
+            <div class="form-group">
+                <x-jet-label for="name" value="{{ __('Group Name') }}" />
+                <x-jet-input id="name" type="text" class="{{ $errors->has('name') ? 'is-invalid' : '' }}"
+                             wire:model.defer="state.name" autofocus />
+                <x-jet-input-error for="name" />
+            </div>
         </div>
     </x-slot>
 
