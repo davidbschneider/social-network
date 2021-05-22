@@ -1,4 +1,4 @@
-<div wire:poll.60000ms>
+<div>
     @foreach($posts as $post)
         <livewire:post :post="$post"/>
     @endforeach
